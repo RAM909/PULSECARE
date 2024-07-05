@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import "react-toastify/dist/ReactToastify.css";
-import { setUser } from '../features/userslice';
+import { addUser } from '../features/userslice';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Login = () => {
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        dispatch(setUser(response.data.user));
+        dispatch(addUser(response.data.user));
         console.log(response.data.message)
         toast.success(response.data.message);
         navigate('/');
@@ -111,7 +111,7 @@ const Login = () => {
                     toast.success(response.data.message);
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('user', JSON.stringify(response.data.user));
-                    dispatch(setUser(response.data?.user));
+                    dispatch(addUser(response.data?.user));
                     navigate('/');
                     console.log("Login Successful");
                     console.log(response.data);

@@ -14,7 +14,7 @@ export const register = async (user) => {
 
 export const verifyOTP = async (form) => {
     try {
-        const  data  = await axios.post(`${host}/api/user/verify`, form);
+        const data = await axios.post(`${host}/api/user/verify`, form);
         return data;
     } catch (error) {
         return error.response;
@@ -23,7 +23,7 @@ export const verifyOTP = async (form) => {
 
 export const login = async (user) => {
     try {
-        const  data  = await axios.post(`${host}/api/user/login`, user);
+        const data = await axios.post(`${host}/api/user/login`, user);
         return data;
     } catch (error) {
         return error.response.data;
@@ -37,4 +37,17 @@ export const googleLogin = async (tokenId) => {
     } catch (error) {
         return error.response.data;
     }
+
+}
+export const doctorapplication = async (info) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.post(`${host}/api/user//apply-doctor`, { info },{headers});
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+
 }

@@ -6,6 +6,7 @@ import Register from './pages/Register.jsx'
 import OTPVerification from './pages/Otpverify.jsx';
 import Homepage from './pages/Homepage.jsx';
 import Bookappoint from './pages/Bookappoint.jsx';
+import DoctorApplicationForm from './pages/dorctorform.jsx';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/verifyotp" element={<OTPVerification />} />
             <Route path="/" element={<Homepage />} />
             <Route path="/bookappointment" element={<Bookappoint/>}/>
+            <Route path="/doctor-application" element={<DoctorApplicationForm/>}/>
           </Routes>
       
     </Router>

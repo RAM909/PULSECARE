@@ -10,7 +10,7 @@ const Footer = () => {
     };
 
     return (
-        <footer className="bottom-0 left-0 right-0 bg-white dark:bg-gray-900 w-full z-50">
+        <footer className="flex  bottom-0 left-0 right-0 bg-white dark:bg-gray-900 w-full z-50">
             <div className="container px-6 py-8 mx-auto">
                 <div className="flex flex-col items-center text-center">
                     <a href="#">
