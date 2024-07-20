@@ -18,31 +18,6 @@ const Bookappoint = () => {
         { id: 12, name: 'Dr. Thomas', specialization: 'Hematology', availability: 'Mon-Thu', imageUrl: 'https://via.placeholder.com/150', rating: 4.7 }
     ];
 
-    // const renderRatingStars = (rating) => {
-    //     const fullStars = Math.floor(rating);
-    //     const halfStar = rating % 1 !== 0;
-    //     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
-    //     return (
-    //         <div className="flex">
-    //             {[...Array(fullStars)].map((_, i) => (
-    //                 <svg key={i} className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    //                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.89 5.822a1 1 0 00.95.69h6.148c.969 0 1.371 1.24.588 1.81l-4.973 3.588a1 1 0 00-.364 1.118l1.89 5.822c.3.921-.755 1.688-1.54 1.118l-4.973-3.588a1 1 0 00-1.176 0l-4.973 3.588c-.784.57-1.838-.197-1.54-1.118l1.89-5.822a1 1 0 00-.364-1.118L2.77 11.25c-.783-.57-.38-1.81.588-1.81h6.148a1 1 0 00.95-.69l1.89-5.822z"/>
-    //                 </svg>
-    //             ))}
-    //             {halfStar && (
-    //                 <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    //                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.89 5.822a1 1 0 00.95.69h6.148c.969 0 1.371 1.24.588 1.81l-4.973 3.588a1 1 0 00-.364 1.118l1.89 5.822c.3.921-.755 1.688-1.54 1.118l-4.973-3.588a1 1 0 00-1.176 0l-4.973 3.588c-.784.57-1.838-.197-1.54-1.118l1.89-5.822a1 1 0 00-.364-1.118L2.77 11.25c-.783-.57-.38-1.81.588-1.81h6.148a1 1 0 00.95-.69l1.89-5.822z"/>
-    //                 </svg>
-    //             )}
-    //             {[...Array(emptyStars)].map((_, i) => (
-    //                 <svg key={i} className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    //                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.89 5.822a1 1 0 00.95.69h6.148c.969 0 1.371 1.24.588 1.81l-4.973 3.588a1 1 0 00-.364 1.118l1.89 5.822c.3.921-.755 1.688-1.54 1.118l-4.973-3.588a1 1 0 00-1.176 0l-4.973 3.588c-.784.57-1.838-.197-1.54-1.118l1.89-5.822a1 1 0 00-.364-1.118L2.77 11.25c-.783-.57-.38-1.81.588-1.81h6.148a1 1 0 00.95-.69l1.89-5.822z"/>
-    //                 </svg>
-    //             ))}
-    //         </div>
-    //     );
-    // };
 
     return (
         <div className="flex flex-col min-h-screen">

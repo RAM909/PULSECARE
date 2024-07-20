@@ -1,28 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/header';
 import Footer from '../components/footer';
 import { useSelector } from 'react-redux';
-import { doctorapplication } from '../apis/api';
+import { doctorapplication, getdoctorreqbyid } from '../apis/api';
 
 const DoctorApplicationForm = () => {
-    // const user = useSelector(state => state.user);
-    // console.log(user)
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user)
     const [formData, setFormData] = useState({
         userID: user._id,
         name: '',
         specialization: '',
         hospital: '',
-        availableDay: '',
+        availableDays: [],
         certificate: null,
     });
+    const [doctorRequest, setDoctorRequest] = useState(null);
+    // const [loading, setLoading] = useState(true);
+
+    //Fetch doctor request data
+    useEffect(() => {
+        const fetchDoctorRequest = async () => {
+            try {
+                const data = await getdoctorreqbyid(user._id);
+                if(data.status === 200){
+                setDoctorRequest(data);
+                }
+                if (data.message === "Doctor request not found") {
+                    setDoctorRequest(null);
+                }
+                console.log(data);
+                // setLoading(false);
+            } catch (error) {
+                console.error('Failed to fetch doctor request:', error);
+                // setLoading(false);
+            }
+        };
+
+        fetchDoctorRequest();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,
+        });
+    };
+
+    const handleDayChange = (e) => {
+        const { value, checked } = e.target;
+        setFormData((prevFormData) => {
+            const availableDays = checked
+                ? [...prevFormData.availableDays, value]
+                : prevFormData.availableDays.filter((day) => day !== value);
+            return { ...prevFormData, availableDays };
         });
     };
 
@@ -33,17 +64,30 @@ const DoctorApplicationForm = () => {
         });
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await doctorapplication(formData);
         console.log(response);
         console.log(formData);
     };
 
+    // Conditional rendering based on the presence of doctor request
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
+
+    // if (doctorRequest) {
+    //     <Navbar />;
+    //     return <div>Request already exists. Please edit your details.</div>;
+    //     <Footer />;
+    // }
+
     return (
         <div className='flex flex-col min-h-screen'>
             <Navbar />
+            
             <main className='flex-grow pt-20'>
+                {doctorRequest ? <div>Request already exists, Please wait for Confirmation.</div>:
                 <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
                     <h2 className="text-2xl font-bold mb-6 text-center">Doctor Application Form</h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -90,26 +134,24 @@ const DoctorApplicationForm = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="availableDay" className="block text-sm font-medium text-gray-700">
-                                Available Day
+                            <label className="block text-sm font-medium text-gray-700">
+                                Available Days
                             </label>
-                            <select
-                                name="availableDay"
-                                id="availableDay"
-                                value={formData.availableDay}
-                                onChange={handleChange}
-                                required
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            >
-                                <option value="" disabled>Select a day</option>
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                                <option value="Sunday">Sunday</option>
-                            </select>
+                            {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
+                                <div key={day} className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        name="availableDays"
+                                        value={day}
+                                        checked={formData.availableDays.includes(day)}
+                                        onChange={handleDayChange}
+                                        className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                    />
+                                    <label htmlFor={day} className="ml-2 block text-sm text-gray-900">
+                                        {day}
+                                    </label>
+                                </div>
+                            ))}
                         </div>
                         <div>
                             <label htmlFor="certificate" className="block text-sm font-medium text-gray-700">
@@ -133,8 +175,7 @@ const DoctorApplicationForm = () => {
                             </button>
                         </div>
                     </form>
-
-                </div>
+                </div>}
             </main>
             <Footer />
         </div>
