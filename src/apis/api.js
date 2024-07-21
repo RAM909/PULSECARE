@@ -52,6 +52,44 @@ export const doctorapplication = async (info) => {
 
 }
 
+export const bookappointment = async (info) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.post(`${host}/api/appointment/book-appointment`, { info }, { headers });
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const getalldoctor = async () => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.get(`${host}/api/doctor/get-all-doctor`, { headers });
+        return data;
+
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const getdoctorbyid = async (id) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.get(`${host}/api/doctor/get-doctorbyid`, { params: { id }, headers });
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+
 export const getdoctorreqbyid = async (id) => {
     try {
         const headers = {

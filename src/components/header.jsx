@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import logophoto from "../assets/logo.jpg";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
+  const [userrole, setUserrole] = useState("patient");
+  const navigate = useNavigate();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       setUser(user)
+      setUserrole(user.role)
     }
 
   }, [])
@@ -51,12 +55,28 @@ const Navbar = () => {
               }`}
           >
             <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
-              <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Book Appointment</a>
+              <a href="/bookappointment" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Book Appointment</a>
               <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Your Appointment</a>
-              {user.role == "doctor" ? <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Appointment Request</a> : <a href="/doctor-application" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Apply for Doctor</a>}
+              {userrole === "doctor" ? (
+                <a href="" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Appointment Request</a>
+              ) : (
+                <a href="/doctor-application" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Apply for Doctor</a>
+              )}
               <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Blog</a>
               <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Map</a>
+              {user ? (<button
+                onClick={() => {
+                  localStorage.clear();
+                  navigate("/login");
+                }}
+                className="px-3 py-2 mx-3 mt-2 bg-red-600 text-white transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              >
+                Logout
+              </button>
+              ) : (null)}
             </div>
+
+
 
             <div className="flex items-center mt-4 lg:mt-0">
               <button
@@ -73,7 +93,7 @@ const Navbar = () => {
                   <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar" />
                 </div>
 
-                <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">Khatab wedaa</h3>
+                <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">{user?user.firstname : null}</h3>
               </button>
             </div>
           </div>
