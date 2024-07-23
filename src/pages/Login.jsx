@@ -12,10 +12,10 @@ import { addUser } from '../features/userslice';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [user, setUser] = useState({
-  //   email: '',
-  //   password: '',
-  // });
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });

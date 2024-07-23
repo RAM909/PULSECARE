@@ -34,7 +34,7 @@ const BookingPage = () => {
         const fetchDoctor = async () => {
             const response = await getdoctorbyid(id);
             console.log(response);
-            setDoctor(response.data);
+            setDoctor(response.data.doctordata);
             setAvailableDays(data.availableDays);
         };
 
@@ -51,9 +51,9 @@ const BookingPage = () => {
             console.log("here")
             setFormData({
                 ...formData,
-                doctorId: doctor.doctordata._id,
-                doctoremail: doctor.doctordata.email,
-                doctorname: doctor.doctordata.firstname,
+                doctorId: doctor._id,
+                doctoremail: doctor.email,
+                doctorname: doctor.firstname + " " + doctor.lastname,
                 patientId: user._id,
                 email: user.email,
             });
@@ -83,8 +83,7 @@ const BookingPage = () => {
         }
 
         console.log('Booking submitted', formData);
-        // navigate(''); // Redirect to a confirmation page or wherever you want
-    };
+        navigate('/your-appointments');};
 
     const getSelectableDates = () => {
         if (!availableDays.length) return [];
@@ -118,7 +117,7 @@ const BookingPage = () => {
             <main className="flex-grow pt-20">
                 <div className="container mx-auto px-4">
                     <h1 className="text-3xl font-bold mb-6 text-center">
-                        Book Appointment with Dr. {doctor.name}
+                        Book Appointment with Dr. {doctor.firstname} {doctor.lastname}
                     </h1>
                     <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
                         <div className="mb-4">

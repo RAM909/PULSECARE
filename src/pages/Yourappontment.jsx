@@ -32,9 +32,11 @@ const UserAppointments = () => {
             console.log(data) // API call to cancel the appointment with reason
             setIsCancelModalOpen(false);
             setCancelReason("");
+            alert("Appointment Cancelled");
             // window.location.reload(); // Reload the page to reflect the updated appointments
         } catch (error) {
             console.error("Failed to cancel appointment:", error);
+            alert("Failed to cancel appointment. Please try again.");
         }
     };
 
