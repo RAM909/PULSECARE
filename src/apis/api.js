@@ -89,6 +89,67 @@ export const getdoctorbyid = async (id) => {
     }
 }
 
+export const getappointpatient = async (id) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.get(`${host}/api/appointment/get-appointment-req-patient`, { params: { id }, headers });
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const cancelAppontmentp = async (id,cancelreason) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.post(`${host}/api/appointment/cancel-appointment-patient`, { id,cancelreason }, { headers });
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+
+export const getappointdoctor = async (id) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.get(`${host}/api/appointment/get-appointment-req-doctor`, { params: { id }, headers });
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const cancelAppointmentd = async (id , cancelreason) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.post(`${host}/api/appointment/cancel-appointment-doctor`, { id, cancelreason}, { headers });
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const approveappoint = async (id) => {
+    try {
+        const headers = { 
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.post(`${host}/api/appointment/approve-appointment`, { id }, { headers });
+        return data;
+
+    }catch (error){
+        return error.response.data
+    }
+}
 
 export const getdoctorreqbyid = async (id) => {
     try {

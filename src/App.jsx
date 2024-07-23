@@ -8,6 +8,8 @@ import Homepage from './pages/Homepage.jsx';
 import Bookappoint from './pages/Bookappoint.jsx';
 import DoctorApplicationForm from './pages/dorctorform.jsx';
 import BookingPage from './pages/BookingPage.jsx';
+import UserAppointments from './pages/Yourappontment.jsx';
+import DoctorAppointments from './pages/Appointmentreq.jsx';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
         <Route path="/bookappointment" element={<Bookappoint />} />
         <Route path="/doctor-application" element={<DoctorApplicationForm />} />
         <Route path="/book-appointment/:id" element={<BookingPage />} />
+        <Route path="/your-appointments" element={<UserAppointments />} />
+        <Route path="/doctor-appointments" element={<DoctorAppointments />} />
       </Routes>
 
     </Router>
