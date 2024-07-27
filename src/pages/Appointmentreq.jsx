@@ -84,7 +84,7 @@ const DoctorAppointments = () => {
                             {appointments.map((appointment) => (
                                 <div key={appointment._id} className="bg-white p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center">
                                     <div className="flex-shrink-0 mb-4 md:mb-0">
-                                        <img src={appointment.patientImageUrl} alt={appointment.patientName} className="w-24 h-24 rounded-full mr-6" />
+                                        <img src={appointment.patientphoto} alt={appointment.patientName} className="w-24 h-24 rounded-full mr-6" />
                                     </div>
                                     <div className="flex-grow text-center md:text-left">
                                         <h2 className="text-xl font-bold mb-2">Patient: {appointment.patientName}</h2>

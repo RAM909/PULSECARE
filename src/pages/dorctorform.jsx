@@ -11,7 +11,7 @@ const DoctorApplicationForm = () => {
     const [doctorRequest, setDoctorRequest] = useState(null);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        userID: user ? user._id : '',
+        userID: '',
         name: '',
         specialization: '',
         hospital: '',
@@ -45,18 +45,29 @@ const DoctorApplicationForm = () => {
         if (user) {
             setUser(user)
             setUserrole(user.role)
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                userID: user._id,
+            }));
             fetchDoctorRequest();
-
         }
+    }, []);
 
-
-    }, [])
     console.log(user);
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
 
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
 
-
-
-
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
 
 
     const handleChange = (e) => {
@@ -80,20 +91,51 @@ const DoctorApplicationForm = () => {
     const handleFileChange = (e) => {
         setFormData({
             ...formData,
-            certificate: e.target.files[0],
+            certificate: e.target.files?.[0],
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await doctorapplication(formData);
-        console.log(response);
         console.log(formData);
+
+        const formDataToSubmit = new FormData();
+        formDataToSubmit.append('userID', formData.userID);
+        formDataToSubmit.append('name', formData.name);
+        formDataToSubmit.append('specialization', formData.specialization);
+        formDataToSubmit.append('hospital', formData.hospital);
+        formData.availableDays.forEach(day => {
+            formDataToSubmit.append('availableDays', day);
+        });
+        if (formData.certificate) {
+            formDataToSubmit.append('certificate', formData.certificate);
+        }
+
+        // Debugging FormData content
+        for (const pair of formDataToSubmit.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        try {
+            const response = await doctorapplication(formDataToSubmit);
+            console.log(response);
+            if(response.status === 200){
+                alert("Application submitted successfully");
+            }
+            else if(response.status === 500){
+                alert("Internal server error");
+            }
+
+            // Handle success, maybe redirect or show a success message
+        } catch (error) {
+            console.error('Failed to submit doctor application:', error);
+            // Handle error, maybe show an error message
+        }
     };
 
-
-
     return (
+        <>
+
         <div className='flex flex-col min-h-screen'>
             <Navbar />
             <main className='flex-grow pt-20'>
@@ -205,6 +247,7 @@ const DoctorApplicationForm = () => {
             </main>
             <Footer />
         </div>
+        </>
     );
 };
 

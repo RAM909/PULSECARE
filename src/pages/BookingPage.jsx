@@ -18,14 +18,16 @@ const BookingPage = () => {
         doctorId: '',
         patientId: '',
         doctoremail: '',
-        doctorname:'',
+        doctorname: '',
         name: '',
         email: '',
         phone: '',
         date: '', // Changed from time to date
         time: '',
         problem: '',
-        selectedDay: ''
+        selectedDay: '',
+        doctorphoto: '',
+        patientphoto: '',
     });
     const [availableDays, setAvailableDays] = useState(["Monday", "Tuesday"]);
 
@@ -56,6 +58,8 @@ const BookingPage = () => {
                 doctorname: doctor.firstname + " " + doctor.lastname,
                 patientId: user._id,
                 email: user.email,
+                doctorphoto: doctor.photo,
+                patientphoto: user.photo,
             });
         }
     }, [doctor, user]);
@@ -74,16 +78,17 @@ const BookingPage = () => {
         e.preventDefault();
         const response = await bookappointment(formData);
         console.log(response);
-        if(response.status === 200){
+        if (response.status === 200) {
             alert("Appointment request successfully send");
 
         }
-        else if(response.status === 500){
+        else if (response.status === 500) {
             alert("Internal server error");
         }
 
         console.log('Booking submitted', formData);
-        navigate('/your-appointments');};
+        navigate('/your-appointments');
+    };
 
     const getSelectableDates = () => {
         if (!availableDays.length) return [];

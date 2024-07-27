@@ -10,7 +10,7 @@ const Footer = () => {
     };
 
     return (
-        <footer className="flex items-center justify-center bg-white dark:bg-gray-900 w-full relative z-10">
+        <footer className="bg-white dark:bg-gray-900 w-full relative z-10">
             <div className="container px-6 py-8 mx-auto">
                 <div className="flex flex-col items-center text-center">
                     <a href="#">
@@ -18,7 +18,7 @@ const Footer = () => {
                     </a>
 
                     <p className="max-w-md mx-auto mt-4 text-gray-500 dark:text-gray-400">
-                        PulseCare is the best site where you can find best doctor to take care of your health.
+                        PulseCare is the best site where you can find the best doctor to take care of your health.
                     </p>
 
                     <div className="flex flex-col mt-4 sm:flex-row sm:items-center sm:justify-center">

@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const host = 'http://localhost:5000';
-const host = 'https://pulsecare-be.onrender.com';
+const host = 'http://localhost:5000';
+// const host = 'https://pulsecare-be.onrender.com';
 
 
 
@@ -40,12 +40,12 @@ export const googleLogin = async (tokenId) => {
     }
 
 }
-export const doctorapplication = async (info) => {
+export const doctorapplication = async (formdata) => {
     try {
         const headers = {
             'auth-token': localStorage.getItem('token'),
         };
-        const data = await axios.post(`${host}/api/doctor/apply-doctor`, { info }, { headers });
+        const data = await axios.post(`${host}/api/doctor/apply-doctor`, formdata , { headers });
         return data;
     } catch (error) {
         return error.response.data;
@@ -170,3 +170,16 @@ export const getdoctorreqbyid = async (id) => {
         return error.response ? error.response.data : { error: 'An unknown error occurred' }; // Return error details
     }
 };
+
+export const updateprofile = async (formdata) => {
+    try {
+        const headers = {
+            'auth-token': localStorage.getItem('token'),
+        };
+        const data = await axios.post(`${host}/api/user/update-profile`, formdata, { headers });
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+

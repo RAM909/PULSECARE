@@ -1,32 +1,29 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import logophoto from "../assets/logo.jpg";
-import { useNavigate } from 'react-router-dom';
-
-
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [userrole, setUserrole] = useState("patient");
   const navigate = useNavigate();
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-      setUser(user)
-      setUserrole(user.role)
+      setUser(user);
+      setUserrole(user.role);
     }
-
-  }, [])
-  console.log(user);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow dark:bg-gray-800 z-50">
       <div className="container px-6 py-4 mx-auto">
         <div className="lg:flex lg:items-center lg:justify-between">
           <div className="flex items-center justify-between">
-            <a href="#">
-              <img className="w-12 h-12 overflow-hidden border-2 border-gray-400 rounded-full" src={logophoto} alt="" />
-            </a>
+            <Link to="/">
+              <img className="w-12 h-12 overflow-hidden border-2 border-gray-400 rounded-full" src={logophoto} alt="Logo" />
+            </Link>
 
             {/* Mobile menu button */}
             <div className="flex lg:hidden">
@@ -55,28 +52,27 @@ const Navbar = () => {
               }`}
           >
             <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
-              <a href="/bookappointment" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Book Appointment</a>
-              <a href="/your-appointments" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Your Appointment</a>
+              <Link to="/bookappointment" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Book Appointment</Link>
+              <Link to="/your-appointments" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Your Appointment</Link>
               {userrole === "doctor" ? (
-                <a href="doctor-appointments" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Appointment Request</a>
+                <Link to="/doctor-appointments" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Appointment Request</Link>
               ) : (
-                <a href="/doctor-application" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Apply for Doctor</a>
+                <Link to="/doctor-application" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Apply for Doctor</Link>
               )}
-              <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Blog</a>
-              <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Map</a>
-              {user ? (<button
-                onClick={() => {
-                  localStorage.clear();
-                  navigate("/login");
-                }}
-                className="px-3 py-2 mx-3 mt-2 bg-red-600 text-white transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              >
-                Logout
-              </button>
-              ) : (null)}
+              <Link to="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Blog</Link>
+              <Link to="/update-profile" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</Link>
+              {user && (
+                <button
+                  onClick={() => {
+                    localStorage.clear();
+                    navigate("/login");
+                  }}
+                  className="px-3 py-2 mx-3 mt-2 bg-red-600 text-white transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Logout
+                </button>
+              )}
             </div>
-
-
 
             <div className="flex items-center mt-4 lg:mt-0">
               <button
@@ -90,10 +86,16 @@ const Navbar = () => {
 
               <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
                 <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                  <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar" />
+                  {user && user.photo ? (
+                    <img src={user.photo} className="object-cover w-full h-full" alt="avatar" />
+                  ) : (
+                    <img src="" className="object-cover w-full h-full" alt="avatar" />
+                  )}
                 </div>
 
-                <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">{user ? user.firstname : null}</h3>
+                {user && (
+                  <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">{user.firstname}</h3>
+                )}
               </button>
             </div>
           </div>

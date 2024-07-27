@@ -10,6 +10,7 @@ import DoctorApplicationForm from './pages/dorctorform.jsx';
 import BookingPage from './pages/BookingPage.jsx';
 import UserAppointments from './pages/Yourappontment.jsx';
 import DoctorAppointments from './pages/Appointmentreq.jsx';
+import UpdateProfile from './pages/UpdateProfile.jsx';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/book-appointment/:id" element={<BookingPage />} />
         <Route path="/your-appointments" element={<UserAppointments />} />
         <Route path="/doctor-appointments" element={<DoctorAppointments />} />
+        <Route path="/update-profile" element={<UpdateProfile />} />
       </Routes>
 
     </Router>
